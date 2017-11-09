@@ -49,10 +49,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
 	<nav class="large-2 medium-3 columns" id="actions-sidebar">
 		<ul class="side-nav">
-			<li><img src="chapeu.png"></li>
+			<?php echo $this->Html->image('chapeu.png', ['alt' => 'logo']); ?>
 			<li class="heading"><?= __('Paulo Paulada') ?></li>
 			<li><?= $this->Html->link(__('Minhas salas'), ['action' => 'index']) ?></li>
 			<li><?= $this->Html->link(__('Criar sala'), ['action' => 'add']) ?></li>
+            <li><?= $this->Html->link(__('Sair'), ['action' => '#']) ?></li>
 		</ul>
 	</nav>
     <?= $this->Flash->render() ?>
