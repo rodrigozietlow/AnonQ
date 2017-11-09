@@ -65,7 +65,11 @@ class UsersTable extends Table
 
         $validator
             ->requirePresence('anonymous', 'create')
-            ->notEmpty('anonymous');
+            ->notEmpty('anonymous')
+			->add('anonymous', 'inList', [
+				'rule' => ['inList', [0, 1]],
+				'message' => 'Por favor, informe um item válido'
+			]);
 
         return $validator;
     }
@@ -83,4 +87,6 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+
 }
