@@ -523,3 +523,28 @@ table td {
     vertical-align: top;
     word-break: break-all;
 }
+
+.menu-fix {
+	padding-bottom: 0px !important;
+	margin-bottom: 0px !important;
+	height:100%;
+	position:relative;
+}
+
+.pergunta {
+	border: solid 1px #000;
+	border-radius: 10px;
+	padding: 5px 10px 5px 10px;
+	margin-bottom: 10px;
+}
+
+.pergunta-titulo {
+	font-weight: bold;
+	font-size: 125%;
+}
+
+.cr {
+	position:absolute;
+	font-size: 70%;
+	bottom: 5px;
+}

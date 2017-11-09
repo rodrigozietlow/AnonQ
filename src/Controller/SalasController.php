@@ -54,7 +54,10 @@ class SalasController extends AppController
     public function view($id = null)
     {
         $sala = $this->Salas->get($id, [
-            'contain' => []
+            'contain' => [
+				"Users",
+				"Perguntas" => "Users"
+			]
         ]);
 
         $this->set('sala', $sala);

@@ -41,6 +41,8 @@ class UsersTable extends Table
 		$this->belongsToMany('Salas', [
 			'joinTable' => 'salas_users'
 		]);
+
+		$this->hasMany("Perguntas");
     }
 
     /**

@@ -34,6 +34,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+	<!--
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-2 medium-3 columns">
             <li class="name">
@@ -47,12 +48,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </ul>
         </div>
     </nav>
+	-->
 	<?php
 	$session = $this->request->session();
 	$user_data = $session->read('Auth.User');
 	if($user_data){
 		?>
-			<nav class="large-2 medium-3 columns" id="actions-sidebar">
+			<nav class="large-2 medium-3 columns menu-fix" id="actions-sidebar">
 				<ul class="side-nav">
 					<?php echo $this->Html->image('chapeu.png', ['alt' => 'logo']); ?>
 					<li class="heading"><?= $user_data['name'];?></li>
@@ -60,6 +62,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 					<li><?= $this->Html->link(__('Criar sala'), ['action' => 'add']) ?></li>
 		            <li><?= $this->Html->link(__('Sair'), ['controller' => 'users', 'action' => 'logout']) ?></li>
 				</ul>
+				<div class='cr'>Criado por Rodrigo Zietlow, Bruno Griebler e Caio Kiefer.</div>
 			</nav>
 		<?php
 	}
@@ -69,6 +72,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('content') ?>
     </div>
     <footer>
+		<div>
+		</div>
     </footer>
 </body>
 </html>
