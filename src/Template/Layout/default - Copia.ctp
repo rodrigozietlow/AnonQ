@@ -35,7 +35,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-2 medium-3 columns">
+        <ul class="title-area large-3 medium-4 columns">
             <li class="name">
                 <h1><a href=""><?= $this->fetch('title') ?></a></h1>
             </li>
@@ -47,14 +47,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </ul>
         </div>
     </nav>
-	<nav class="large-2 medium-3 columns" id="actions-sidebar">
-		<ul class="side-nav">
-			<li><img src="chapeu.png"></li>
-			<li class="heading"><?= __('Paulo Paulada') ?></li>
-			<li><?= $this->Html->link(__('Minhas salas'), ['action' => 'index']) ?></li>
-			<li><?= $this->Html->link(__('Criar sala'), ['action' => 'add']) ?></li>
-		</ul>
-	</nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
