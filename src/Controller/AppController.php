@@ -50,8 +50,8 @@ class AppController extends Controller
 				'action' => 'index'
 			],
 			'logoutRedirect' => [
-				"controller" => 'Pages',
-				'action' => 'display',
+				"controller" => 'Users',
+				'action' => 'index',
 				'home'
 			],
 			'authenticate' => [
@@ -72,7 +72,6 @@ class AppController extends Controller
 	public function isAuthorized($user)
 	{
 		// todo: adicionar permissão pra tudo se for professor
-		debug($user);
 		if($user['id'] == 7){ // rodrigo.zietlow pode tudo
 			return true;
 		}
@@ -81,7 +80,7 @@ class AppController extends Controller
 	}
 	public function beforeFilter(Event $event)
 	{
-		$this->Auth->allow(['index', 'display']);
+		$this->Auth->allow(['display']);
 	}
 
     /**

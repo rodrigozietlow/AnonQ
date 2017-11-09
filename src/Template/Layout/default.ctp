@@ -47,15 +47,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </ul>
         </div>
     </nav>
-	<nav class="large-2 medium-3 columns" id="actions-sidebar">
-		<ul class="side-nav">
-			<?php echo $this->Html->image('chapeu.png', ['alt' => 'logo']); ?>
-			<li class="heading"><?= __('Paulo Paulada') ?></li>
-			<li><?= $this->Html->link(__('Minhas salas'), ['action' => 'index']) ?></li>
-			<li><?= $this->Html->link(__('Criar sala'), ['action' => 'add']) ?></li>
-            <li><?= $this->Html->link(__('Sair'), ['action' => '#']) ?></li>
-		</ul>
-	</nav>
+	<?php
+	$session = $this->request->session();
+	$user_data = $session->read('Auth.User');
+	if($user_data){
+		?>
+			<nav class="large-2 medium-3 columns" id="actions-sidebar">
+				<ul class="side-nav">
+					<?php echo $this->Html->image('chapeu.png', ['alt' => 'logo']); ?>
+					<li class="heading"><?= $user_data['name'];?></li>
+					<li><?= $this->Html->link(__('Minhas salas'), ['controller' => 'salas', 'action' => 'index']) ?></li>
+					<li><?= $this->Html->link(__('Criar sala'), ['action' => 'add']) ?></li>
+		            <li><?= $this->Html->link(__('Sair'), ['controller' => 'users', 'action' => 'logout']) ?></li>
+				</ul>
+			</nav>
+		<?php
+	}
+	?>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>

@@ -33,6 +33,10 @@ class SalasTable extends Table
         $this->setTable('salas');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+		$this->belongsToMany('Users', [
+			'joinTable' => 'salas_users'
+		]);
     }
 
     /**
@@ -63,4 +67,9 @@ class SalasTable extends Table
 
         return $validator;
     }
+
+	public function salaOfUser($id_sala, $id_user)
+	{
+		return ($this->exists(['id' => $id_sala, 'id_user' => $id_user]) || false);
+	}
 }

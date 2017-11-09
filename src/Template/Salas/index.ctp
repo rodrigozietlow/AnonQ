@@ -22,9 +22,15 @@
                 <td><?= h($sala->link) ?></td>
                 <td><?= $this->Number->format($sala->nr_students) ?></td>
                 <td class="actions">
-					<?= $this->Html->link(__('View'), ['action' => 'view', $sala->id]) ?>
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $sala->id]) ?>
-                    <?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $sala->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sala->id)]) ?>
+					<?php
+					if($sala->user_id == $this->request->session()->read('Auth.User.id')){
+						?>
+						<?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $sala->id], ['confirm' => __('Are you sure you want to delete it?', $sala->id)])?>
+						<?= $this->Html->link(__('Editar'), ['action' => 'edit', $sala->id]) ?>
+						<?php
+					}
+					?>
+					<?= $this->Html->link(__('Acessar'), ['action' => 'view', $sala->id]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

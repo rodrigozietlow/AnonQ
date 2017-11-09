@@ -17,7 +17,6 @@ class UsersController extends AppController
 	{
 		parent::beforeFilter($event);
 		$this->Auth->allow(['add', 'logout']);
-		//debug($this->Auth);
 	}
 
 
@@ -59,6 +58,9 @@ class UsersController extends AppController
 			if($this->Auth->user('id') == (int)$this->request->getParam('pass.0')){
 				return true;
 			}
+		}
+		if($this->request->getParam('action') == 'index' && $this->Auth->user('id')){
+			return true;
 		}
 
 		return parent::isAuthorized($user);

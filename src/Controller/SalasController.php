@@ -12,6 +12,14 @@ use App\Controller\AppController;
  */
 class SalasController extends AppController
 {
+	public function isAuthorized($user)
+	{
+		if($this->Auth->user('id')){
+			return true;
+		}
+
+		return parent::isAuthorized($user);
+	}
 
     /**
      * Index method
@@ -20,8 +28,18 @@ class SalasController extends AppController
      */
     public function index()
     {
-        $salas = $this->paginate($this->Salas);
 
+
+        $query = $this->Salas->find("all")
+			->leftJoinWith("Users")
+			->where([
+				'OR' => [
+					'Salas.user_id' => $this->Auth->user('id'),
+					'SalasUsers.user_id' => $this->Auth->user('id')
+				]
+			]);
+		//debug($query);
+		$salas = $this->paginate($query);
         $this->set(compact('salas'));
         $this->set('_serialize', ['salas']);
     }
