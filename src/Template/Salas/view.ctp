@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Sala $sala
  */
 ?>
+<<<<<<< HEAD
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -33,4 +34,26 @@
             <td><?= $this->Number->format($sala->nr_students) ?></td>
         </tr>
     </table>
+=======
+<div class="view large-9 medium-8 columns content">
+
+    <li>Qual é a massa do sol?</li>
+    <li>Qual é a massa do sol?</li>
+    <li>Qual é a massa do sol?</li>
+    <li>Qual é a massa do sol?</li>
+    
+</div>
+
+<div class="view large-3 medium-2 columns content">
+    <ul class="side-nav">
+        <li class="heading"><?= h($sala->name) ?></li>
+        <hr/>
+        <li>Aluno 1</li>
+        <li>Aluno 2</li>
+        <li>Aluno 3 (anônimo)</li>
+        <hr/>
+        <input type="text" name="tags" placeholder="Tags">
+
+    </ul>
+>>>>>>> 34538f9b08b01c1aa5224773d04acb84cf9db3b2
 </div>
