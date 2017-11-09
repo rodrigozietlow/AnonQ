@@ -41,6 +41,9 @@ class PerguntasTable extends Table
 
 		$this->belongsTo('Users');
 		$this->belongsTo('Salas');
+		$this->belongsToMany('Tags', [
+			'joinTable' => 'perguntas_tags'
+		]);
     }
 
     /**

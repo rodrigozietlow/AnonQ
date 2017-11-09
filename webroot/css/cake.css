@@ -548,3 +548,14 @@ table td {
 	font-size: 70%;
 	bottom: 5px;
 }
+
+.pergunta-tags {
+}
+.pergunta-tags-tag {
+	padding: 5px;
+	border: solid #d9d9d9 1px;
+	background-color: #d9d9d9;
+	border-radius: 5px;
+	margin:5px;
+	display:inline-block;
+}

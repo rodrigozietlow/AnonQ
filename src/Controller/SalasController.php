@@ -37,7 +37,8 @@ class SalasController extends AppController
 					'Salas.user_id' => $this->Auth->user('id'),
 					'SalasUsers.user_id' => $this->Auth->user('id')
 				]
-			]);
+			])
+			->distinct([]);
 		//debug($query);
 		$salas = $this->paginate($query);
         $this->set(compact('salas'));
@@ -56,7 +57,8 @@ class SalasController extends AppController
         $sala = $this->Salas->get($id, [
             'contain' => [
 				"Users",
-				"Perguntas" => "Users"
+				"Perguntas" => ["Users", "Tags"],
+				"Tags"
 			]
         ]);
 

@@ -22,6 +22,13 @@
 		else if($pergunta['user']['anonymous'] == 1){
 			echo $pergunta['user']['name'];
 		}
+		if(!empty($pergunta['tags'])){
+			echo "<div class='pergunta-tags'>";
+			foreach($pergunta['tags'] as $tag){
+				echo "<span class='pergunta-tags-tag'>".$tag['nome']."</span>";
+			}
+			echo "</div>";
+		}
 		echo "</div></div>";
 	}
 	?>
@@ -55,12 +62,27 @@
 		<?php
 		if($this->request->session()->read('Auth.User.id') == $sala->user_id){ // se é o professor, exibe o menu de tags
 			?>
-	        <input type="text" name="tags" placeholder="Tags">
+			<?= $this->Form->create(\Cake\ORM\TableRegistry::get('Tags')->newEntity(), ["url" => "/tags/add"]) ?>
 			<?php
+			   echo $this->Form->control('nome', ["placeholder" => "Digite uma tag para adicionar", "label" => false]);
+			   echo $this->Form->control('sala_id', ['type' => 'hidden', "value" => $sala->id]);
+			?>
+			<?= $this->Form->button(__('Salvar')) ?>
+			<?= $this->Form->end() ?>
+			<?php
+			foreach($sala->tags as $tag){
+				echo "<span class='pergunta-tags-tag'>".$tag['nome']."</span>";
+			}
 		}
 		else { // aluno exibe o menu de enviar pergunta
 			?>
-			 <input type="text" name="pergunta" placeholder="Envie sua pergunta">
+			<?= $this->Form->create($pergunta) ?>
+	        <?php
+	            echo $this->Form->control('user_id');
+	            echo $this->Form->control('texto');
+	        ?>
+		    <?= $this->Form->button(__('Submit')) ?>
+		    <?= $this->Form->end() ?>
 			<?php
 		}
 		?>

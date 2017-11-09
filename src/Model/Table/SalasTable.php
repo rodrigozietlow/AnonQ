@@ -39,6 +39,9 @@ class SalasTable extends Table
 		]);
 
 		$this->hasMany("Perguntas");
+		$this->hasMany("Tags", [
+			"joinType" => "LEFT"
+		]);
     }
 
     /**
