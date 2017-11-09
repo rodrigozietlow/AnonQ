@@ -7,10 +7,15 @@ use Cake\ORM\Entity;
  * Pergunta Entity
  *
  * @property int $id
- * @property int $id_user
+ * @property int $user_id
+ * @property int $sala_id
  * @property string $texto
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
+ *
+ * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Sala $sala
+ * @property \App\Model\Entity\Tag[] $tags
  */
 class Pergunta extends Entity
 {
@@ -25,9 +30,13 @@ class Pergunta extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id_user' => true,
+        'user_id' => true,
+        'sala_id' => true,
         'texto' => true,
         'created' => true,
-        'modified' => true
+        'modified' => true,
+        'user' => true,
+        'sala' => true,
+        'tags' => true
     ];
 }

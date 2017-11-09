@@ -12,7 +12,14 @@ use App\Controller\AppController;
  */
 class PerguntasController extends AppController
 {
+	public function isAuthorized($user)
+	{
+		if($this->Auth->user('id')){
+			return true;
+		}
 
+		return parent::isAuthorized($user);
+	}
     /**
      * Index method
      *
@@ -53,15 +60,23 @@ class PerguntasController extends AppController
         $pergunta = $this->Perguntas->newEntity();
         if ($this->request->is('post')) {
             $pergunta = $this->Perguntas->patchEntity($pergunta, $this->request->getData());
+			$pergunta->user_id = $this->Auth->user('id');
+			/*
+			$pergunta->tags = $this->Perguntas->Tags->find("all", [
+				"conditions" => ["Tags.id IN" => $this->request->getData()['tags']['_ids']]
+			]);
+			debug($pergunta);
+			debug($this->request->getData());
+			die();
+			*/
             if ($this->Perguntas->save($pergunta)) {
-                $this->Flash->success(__('The pergunta has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('A pergunta foi salva.'));
             }
-            $this->Flash->error(__('The pergunta could not be saved. Please, try again.'));
+			else{
+            	$this->Flash->error(__('A pergunta não pode ser salva. Por favor, tente novamente.'));
+			}
+	        $this->redirect(['controller' => 'salas', 'action' => 'view', $pergunta->sala_id]);
         }
-        $this->set(compact('pergunta'));
-        $this->set('_serialize', ['pergunta']);
     }
 
     /**

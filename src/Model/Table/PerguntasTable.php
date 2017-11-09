@@ -9,6 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Perguntas Model
  *
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\SalasTable|\Cake\ORM\Association\BelongsTo $Salas
+ * @property \App\Model\Table\TagsTable|\Cake\ORM\Association\BelongsToMany $Tags
+ *
  * @method \App\Model\Entity\Pergunta get($primaryKey, $options = [])
  * @method \App\Model\Entity\Pergunta newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Pergunta[] newEntities(array $data, array $options = [])
@@ -38,12 +42,19 @@ class PerguntasTable extends Table
 
         $this->addBehavior('Timestamp');
 
-
-		$this->belongsTo('Users');
-		$this->belongsTo('Salas');
-		$this->belongsToMany('Tags', [
-			'joinTable' => 'perguntas_tags'
-		]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Salas', [
+            'foreignKey' => 'sala_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsToMany('Tags', [
+            'foreignKey' => 'pergunta_id',
+            'targetForeignKey' => 'tag_id',
+            'joinTable' => 'perguntas_tags'
+        ]);
     }
 
     /**
@@ -59,15 +70,25 @@ class PerguntasTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('id_user')
-            ->requirePresence('id_user', 'create')
-            ->notEmpty('id_user');
-
-        $validator
             ->scalar('texto')
             ->requirePresence('texto', 'create')
             ->notEmpty('texto');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['sala_id'], 'Salas'));
+
+        return $rules;
     }
 }

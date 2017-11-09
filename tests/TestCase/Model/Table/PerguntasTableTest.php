@@ -24,7 +24,12 @@ class PerguntasTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.perguntas'
+        'app.perguntas',
+        'app.users',
+        'app.salas',
+        'app.salas_users',
+        'app.tags',
+        'app.perguntas_tags'
     ];
 
     /**

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Salas Controller
@@ -57,11 +58,11 @@ class SalasController extends AppController
         $sala = $this->Salas->get($id, [
             'contain' => [
 				"Users",
-				"Perguntas" => ["Users", "Tags"],
+				"Perguntas" => ["Users", "Tags", "sort" => ['Perguntas.created' => 'ASC']],
 				"Tags"
 			]
         ]);
-
+		$this->set('tags', $sala->tags);
         $this->set('sala', $sala);
         $this->set('_serialize', ['sala']);
     }
@@ -131,4 +132,24 @@ class SalasController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+	public function acessar($link)
+	{
+		$salasTable = TableRegistry::get('Salas');
+
+		$this->request->allowMethod(['get']);
+		$sala = $this->Salas->find('all', [
+			"conditions" => [
+				"link" => $link
+			]
+		])
+			->firstOrFail();
+		$user = TableRegistry::get("Users")->find("all", [
+			'conditions' => ['id' => $this->Auth->user('id')]
+		])->firstOrFail();
+
+		$salasTable->Users->link($sala, [$user]);
+
+		$this->redirect(['controller' => 'salas', 'action' => 'view', $sala->id]);
+	}
 }

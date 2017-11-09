@@ -30,6 +30,7 @@
 			echo "</div>";
 		}
 		echo "</div></div>";
+		//debug($tags);
 	}
 	?>
 
@@ -76,14 +77,33 @@
 		}
 		else { // aluno exibe o menu de enviar pergunta
 			?>
-			<?= $this->Form->create($pergunta) ?>
+			<?= $this->Form->create(\Cake\ORM\TableRegistry::get('Perguntas')->newEntity(), ["url" => "/perguntas/add"]) ?>
 	        <?php
-	            echo $this->Form->control('user_id');
-	            echo $this->Form->control('texto');
+            echo $this->Form->hidden('sala_id', ["value" => $sala->id]);
+            echo $this->Form->control('texto', ["placeholder" => "Digite a pergunta", "rows" => 3, 'label' => false]);
+
+            //echo $this->Form->control('tags._ids', ['options' => $tags]);
+			/*
+			foreach($sala->tags as $tag){
+				//echo 1;
+				echo $this->Form->checkbox('tags[]', ['hiddenField' => false, 'value' => $tag->id]);
+			}
+
+			echo $this->Form->input('tags._ids', [
+			    'label' => false,
+			    'type' => 'select',
+			    'multiple' => 'checkbox',
+			    'options' => $tags
+			]);
+			//echo $this->Form->input('tags', ['multiple' => 'checkbox', 'options' => $tags]);
+			*/
 	        ?>
-		    <?= $this->Form->button(__('Submit')) ?>
+		    <?= $this->Form->button(__('Enviar')) ?>
 		    <?= $this->Form->end() ?>
 			<?php
+			foreach($sala->tags as $tag){
+				echo "<span class='pergunta-tags-tag'>".$tag['nome']."</span>";
+			}
 		}
 		?>
 
